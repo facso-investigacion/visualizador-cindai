@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dirección de Investigación y Publicaciones">
+
+<title>CINDAI – Datos Abiertos</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="visualizador_files/libs/clipboard/clipboard.min.js"></script>
+<script src="visualizador_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="visualizador_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="visualizador_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="visualizador_files/libs/quarto-html/popper.min.js"></script>
+<script src="visualizador_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="visualizador_files/libs/quarto-html/anchor.min.js"></script>
+<link href="visualizador_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="visualizador_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="visualizador_files/libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="visualizador_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="visualizador_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="visualizador_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="visualizador_files/libs/bootstrap/bootstrap-f99b1516c2f244461a145fb7881a9c73.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="visualizador_files/libs/bootstrap/bootstrap-dark-f99b1516c2f244461a145fb7881a9c73.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="visualizador_files/libs/bootstrap/bootstrap-f99b1516c2f244461a145fb7881a9c73.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="visualizador_files/libs/quarto-dashboard/quarto-dashboard.js"></script>
+<script src="visualizador_files/libs/quarto-dashboard/stickythead.js"></script>
+
+
+
+<script src="visualizador_files/libs/quarto-dashboard/web-components.js" type="module"></script>
+<script src="visualizador_files/libs/quarto-dashboard/components.js"></script>
+
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="quarto-dashboard dashboard-fill dashboard-sidebar fullcontent quarto-light">
+
+<header id="quarto-dashboard-header">
+<nav class="navbar navbar-expand-md slim" data-bs-theme="dark">
+  <div class="navbar-container container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-controls="dashboard-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>    
+
+
+    <div class="navbar-brand-container">
+
+
+      <div class="navbar-title">
+        <div class="navbar-title-text"><a href="#">CINDAI – Datos Abiertos</a></div>
+        
+        <div class="navbar-author">Dirección de Investigación y Publicaciones</div>
+      </div>
+    </div>
+<div id="dashboard-collapse" class="navbar-collapse collapse"><ul class="navbar-nav navbar-nav-scroll me-auto" role="tablist"><li class="nav-item" role="presentation"><a id="tab-inicio" class="nav-link active" data-bs-toggle="tab" role="tab" data-bs-target="#inicio" data-scrolling="false" href="#inicio" aria-controls="inicio" aria-selected="true"><span class="nav-link-text">Inicio</span></a></li><li class="nav-item" role="presentation"><a id="tab-generales" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#generales" data-scrolling="false" href="#generales" aria-controls="generales" aria-selected="false"><span class="nav-link-text">Datos generales</span></a></li><li class="nav-item" role="presentation"><a id="tab-historico" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#historico" data-scrolling="false" href="#historico" aria-controls="historico" aria-selected="false"><span class="nav-link-text">Serie Temporal</span></a></li><li class="nav-item" role="presentation"><a id="tab-en_ejec" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#en_ejec" data-scrolling="false" href="#en_ejec" aria-controls="en_ejec" aria-selected="false"><span class="nav-link-text">Proyectos en ejecución</span></a></li></ul><div class="quarto-dashboard-links"><a class="quarto-dashboard-link" href="https://github.com/facso-investigacion/visualizador-cindai" target="_blank"><i class="bi bi-github"></i></a></div></div></div>
+</nav>
+</header>
+<div class="page-layout-custom quarto-dashboard-content bslib-gap-spacing html-fill-container bslib-page-fill quarto-dashboard-pages">  
+
+<div class="bslib-grid-item html-fill-item tab-content bslib-grid" data-layout="fill" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div id="inicio" class="dashboard-page tab-pane show active html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-inicio">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content); grid-auto-columns: minmax(0, 1fr);">
+<div class="card html-fill-item html-fill-container bslib-card" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="cell card-body html-fill-item html-fill-container">
+<script>
+document.addEventListener('click', function (e) {
+  const a = e.target.closest('a.card-link[href^="#"]');
+  if (!a) return;
+  e.preventDefault();
+
+  const hash = a.getAttribute('href');
+
+  const btn = document.querySelector(
+    `a.nav-link[href="${hash}"], button.nav-link[data-bs-target="${hash}"]`
+  );
+
+  if (btn) {
+    if (window.bootstrap && bootstrap.Tab) {
+      const tab = bootstrap.Tab.getOrCreateInstance(btn);
+      tab.show();
+    } else {
+      btn.click();
+    }
+
+    setTimeout(() => {
+      const target = document.querySelector(hash);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  } else {
+    location.hash = hash;
+  }
+});
+</script>
+<div class="bslib-grid bslib-mb-spacing html-fill-item html-fill-container" data-require-bs-caller="layout_column_wrap()" data-require-bs-version="5" style="grid-template-columns:repeat(3, minmax(0, 1fr));grid-auto-rows:1fr;--bslib-grid-height:auto;--bslib-grid-height-mobile:auto;">
+<div class="bslib-grid-item bslib-gap-spacing html-fill-container html-fill-item">
+<a href="#generales" class="card-link">
+<div class="card bslib-card bslib-mb-spacing html-fill-item html-fill-container home-card" data-bslib-card-init="" data-require-bs-caller="card()" data-require-bs-version="5" data-full-screen="false">
+<div class="card-header dashboard-card-no-title">
+<div class="row g-2 align-items-center html-fill-item html-fill-container">
+<div class="col-auto html-fill-item html-fill-container"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" class="bi bi-clipboard-data-fill " style="height:28px;width:28px;fill:currentColor;vertical-align:-0.125em;" aria-hidden="true" role="img"><path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"></path>
+<path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1ZM10 8a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V8Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z"></path></svg></div>
+<div class="col html-fill-item html-fill-container">
+<strong>Datos Generales</strong>
+</div>
+</div>
+</div>
+<div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
+<p class="text-muted small mb-0">Datos históricos generales sobre proyectos postulados y adjudicados por académicos FACSO</p>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</a>
+</div>
+<div class="bslib-grid-item bslib-gap-spacing html-fill-container html-fill-item">
+<a href="#historico" class="card-link">
+<div class="card bslib-card bslib-mb-spacing html-fill-item html-fill-container home-card" data-bslib-card-init="" data-require-bs-caller="card()" data-require-bs-version="5" data-full-screen="false">
+<div class="card-header dashboard-card-no-title">
+<div class="row g-2 align-items-center html-fill-item html-fill-container">
+<div class="col-auto html-fill-item html-fill-container"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" class="bi bi-graph-up-arrow " style="height:28px;width:28px;fill:currentColor;vertical-align:-0.125em;" aria-hidden="true" role="img"><path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"></path></svg></div>
+<div class="col html-fill-item html-fill-container">
+<strong>Serie Temporal</strong>
+</div>
+</div>
+</div>
+<div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
+<p class="text-muted small mb-0">Evolución de proyectos postulados y adjudicados</p>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</a>
+</div>
+<div class="bslib-grid-item bslib-gap-spacing html-fill-container html-fill-item">
+<a href="#en_ejec" class="card-link">
+<div class="card bslib-card bslib-mb-spacing html-fill-item html-fill-container home-card" data-bslib-card-init="" data-require-bs-caller="card()" data-require-bs-version="5" data-full-screen="false">
+<div class="card-header dashboard-card-no-title">
+<div class="row g-2 align-items-center html-fill-item html-fill-container">
+<div class="col-auto html-fill-item html-fill-container"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" class="bi bi-collection-play-fill " style="height:28px;width:28px;fill:currentColor;vertical-align:-0.125em;" aria-hidden="true" role="img"><path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm6.258-6.437a.5.5 0 0 1 .507.013l4 2.5a.5.5 0 0 1 0 .848l-4 2.5A.5.5 0 0 1 6 12V7a.5.5 0 0 1 .258-.437z"></path></svg></div>
+<div class="col html-fill-item html-fill-container">
+<strong>Proyectos en Ejecución</strong>
+</div>
+</div>
+</div>
+<div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
+<p class="text-muted small mb-0">Descriptivos de Proyectos en Ejecución</p>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</a>
+</div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+</div>
+<div id="generales" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-generales">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 70fr) minmax(3em, 30fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container no-overflow-x">
+<div id="kpi_panel" class="shiny-html-output html-fill-item html-fill-container"></div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="form-group shiny-input-container html-fill-item html-fill-container no-baseline">
+<label class="control-label" id="years_range-label" for="years_range">Rango de años</label>
+<input class="js-range-slider" id="years_range" data-skin="shiny" data-type="double" data-min="1983" data-max="2026" data-from="2021" data-to="2025" data-step="1" data-grid="true" data-grid-num="8.6" data-grid-snap="false" data-prettify-separator="" data-prettify-enabled="false" data-keyboard="true" data-drag-interval="true" data-data-type="number">
+</div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+</div>
+</div>
+<div id="historico" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container dashboard-sidebar-container" data-orientation="rows" aria-labelledby="tab-historico">
+<div class="bslib-sidebar-layout html-fill-item sidebar-right html-fill-container" data-bslib-sidebar-open="desktop" data-bslib-sidebar-init="true" style=" --bslib-sidebar-width: 30%" data-bslib-sidebar-border="false" data-bslib-sidebar-border-radius="false"><div class="main html-fill-container html-fill-item"><div class="sidebar-content html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme html-fill-item html-fill-container" id="plot" style="width:100%;height:400px;"></div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+</div>
+</div></div><aside id="bslib-sidebar-1" class="sidebar html-fill-container html-fill-item"><div class="html-fill-item html-fill-container">
+<div class="cell-output-display">
+<div class="form-group shiny-input-container no-baseline">
+<label class="control-label" id="years_range_b-label" for="years_range_b">Rango de años</label>
+<input class="js-range-slider" id="years_range_b" data-skin="shiny" data-type="double" data-min="1991" data-max="2026" data-from="2016" data-to="2025" data-step="1" data-grid="true" data-grid-num="8.75" data-grid-snap="false" data-prettify-separator="" data-prettify-enabled="false" data-keyboard="true" data-drag-interval="true" data-data-type="number">
+</div>
+</div>
+<div class="cell-output-display no-overflow-x">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="sexo-label" for="sexo">Seleccionar Género del IR</label>
+<select data-actions-box="true" data-live-search="true" data-none-selected-text="Seleccione Género" data-state-input="true" id="sexo" class="selectpicker form-control" autocomplete="off" multiple="multiple"><option value="Femenino">Femenino</option>
+<option value="Masculino">Masculino</option></select>
+</div>
+</div>
+<div class="cell-output-display no-overflow-x">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="departamento-label" for="departamento">Seleccionar Departamento del IR</label>
+<select data-actions-box="true" data-live-search="true" data-none-selected-text="Seleccione Departamento" data-state-input="true" id="departamento" class="selectpicker form-control" autocomplete="off" multiple="multiple"><option value="Antropología">Antropología</option>
+<option value="Educación">Educación</option>
+<option value="Psicología">Psicología</option>
+<option value="Sociología">Sociología</option>
+<option value="Trabajo Social">Trabajo Social</option>
+<option value="Postgrado">Postgrado</option></select>
+</div>
+</div>
+<div class="cell-output-display no-overflow-x">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="jerarquia-label" for="jerarquia">Seleccionar Jerarquía del IR</label>
+<select data-actions-box="true" data-live-search="true" data-none-selected-text="Seleccione Jerarquía" data-state-input="true" id="jerarquia" class="selectpicker form-control" autocomplete="off" multiple="multiple"><option value="Instructor">Instructor</option>
+<option value="Asistente">Asistente</option>
+<option value="Asociado">Asociado</option>
+<option value="Titular">Titular</option></select>
+</div>
+</div>
+<div class="cell-output-display no-overflow-x">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="instrumento-label" for="instrumento">Seleccionar Instrumento</label>
+<select data-actions-box="true" data-live-search="true" data-none-selected-text="Seleccione Instrumento" data-state-input="true" id="instrumento" class="selectpicker form-control" autocomplete="off" multiple="multiple"><option value="Concursos Asociativos">Concursos Asociativos</option>
+<option value="Concursos de Investigación Aplicada">Concursos de Investigación Aplicada</option>
+<option value="Iniciación en Investigación">Iniciación en Investigación</option>
+<option value="Otros">Otros</option>
+<option value="Postdoctorado">Postdoctorado</option>
+<option value="Regular">Regular</option>
+<option value="Universidad de Chile">Universidad de Chile</option></select>
+</div>
+</div>
+</div></aside>
+<button class="collapse-toggle" type="button" title="Toggle sidebar" aria-expanded="true" aria-controls="bslib-sidebar-1">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" class="bi bi-chevron-left collapse-icon" style="fill:currentColor;" aria-hidden="true" role="img">
+      <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+    </svg>
+</button>
+<script data-bslib-sidebar-init="">
+bslib.Sidebar.initCollapsibleAll()
+</script>
+</div>
+</div>
+<div id="en_ejec" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container dashboard-sidebar-container" data-orientation="rows" aria-labelledby="tab-en_ejec">
+<div class="bslib-sidebar-layout html-fill-item html-fill-container" data-bslib-sidebar-open="desktop" data-bslib-sidebar-init="true" style=" --bslib-sidebar-width: 20%"><div class="main html-fill-container html-fill-item"><div class="sidebar-content html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr) minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme html-fill-item html-fill-container" id="treemap_inst" style="width:100%;height:400px;"></div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="form-group shiny-input-container html-fill-item html-fill-container">
+<input id="use_jce_depto" type="checkbox" class="sw-switchInput" data-input-id="use_jce_depto" data-on-text="Proyectos/JCE" data-off-text="Total" data-label-text="Mostrar" data-label-width="auto" data-handle-width="auto" data-size="mini">
+</div>
+</div>
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme html-fill-item html-fill-container" id="treemap_depto" style="width:100%;height:400px;"></div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div><div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr) minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="form-group shiny-input-container html-fill-item html-fill-container">
+<input id="use_jce_jerarq" type="checkbox" class="sw-switchInput" data-input-id="use_jce_jerarq" data-on-text="Proyectos/JCE" data-off-text="Total" data-label-text="Mostrar" data-label-width="auto" data-handle-width="auto" data-size="small">
+</div>
+</div>
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme html-fill-item html-fill-container" id="treemap_jerarq" style="width:100%;height:400px;"></div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+<div class="card cell html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="form-group shiny-input-container html-fill-item html-fill-container">
+<input id="use_jce_sexo" type="checkbox" class="sw-switchInput" data-input-id="use_jce_sexo" data-on-text="Proyectos/JCE" data-off-text="Total" data-label-text="Mostrar" data-label-width="auto" data-handle-width="auto" data-size="small">
+</div>
+</div>
+<div class="cell-output-display html-fill-item html-fill-container">
+<div class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme html-fill-item html-fill-container" id="treemap_genero" style="width:100%;height:400px;"></div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+<div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+</div></div><aside id="bslib-sidebar-2" class="sidebar html-fill-container html-fill-item"><div class="html-fill-item html-fill-container">
+<div class="cell-output-display no-overflow-x">
+<div id="kpi_vigentes" class="shiny-html-output"></div>
+</div>
+</div></aside>
+<button class="collapse-toggle" type="button" title="Toggle sidebar" aria-expanded="true" aria-controls="bslib-sidebar-2">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" class="bi bi-chevron-left collapse-icon" style="fill:currentColor;" aria-hidden="true" role="img">
+      <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+    </svg>
+</button>
+<script data-bslib-sidebar-init="">
+bslib.Sidebar.initCollapsibleAll()
+</script>
+</div>
+</div>
+</div>
+<p>
+<script type="application/shiny-prerendered" data-context="server-start">
+rm(list = ls())
+
+## Cargar librerías ----
+library(pacman)
+p_load(tidyverse, DT, shiny, shinyWidgets, haven, httr, bslib, bsicons, glue, scales, shinyjs, plotly, tidyr,
+       labelled)
+options(shiny.usecairo = TRUE)
+
+shinyWidgets:::html_dependency_picker_bs(
+  theme = bslib::bs_theme(version = 5)
+) # solucion mágica para que funcione shinyWidgets. Agregar #| include: false al chunk para que no aparezca una caja vacía
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server-start">
+# Utilidades
+kpi_box <- function(title, value, subtitle = NULL, icon = bs_icon("bar-chart-fill"), theme = "primary", ...) {
+  value_box(
+    title = title,
+    value = value,
+    showcase = icon,
+    theme = theme,
+    p(subtitle),
+    ... # Pasa cualquier argumento adicional aquí
+  )
+}
+
+nav_card_link <- function(title, subtitle, icon, anchor) {
+  tags$a(
+    href = anchor, class = "card-link",
+    bslib::card(
+      class = "home-card",
+      bslib::card_header(
+        div(class = "row g-2 align-items-center",
+            div(class="col-auto", HTML(bs_icon(icon, size = 28))),
+            div(class="col", tags$strong(title))
+        )
+      ),
+      bslib::card_body(
+        tags$p(class = "text-muted small mb-0", subtitle)
+      )
+    )
+  )
+}
+
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="data">
+
+## Cargar datos ----
+load("input/data-general-anon.rdata")
+load("input/data-proyectos-anon.rdata")
+
+
+# 1. Usamos haven::zap_labels() para eliminar etiquetas de 'haven' de todas las columnas.
+# 2. Convertimos todas las columnas a tipo 'character' para evitar problemas de compatibilidad.
+
+data <- data |>
+  haven::zap_labels() |>
+  mutate(across(everything(), as.character))
+
+proy_etiquetas <- proyectos_anon |>
+  mutate(across(
+    everything(),
+    ~ if (inherits(.x, "haven_labelled")) to_factor(.x) else .x
+  )) |> filter(institucion!="FACSO")
+
+proyectos_facso <- proyectos_anon
+
+ proyectos_facso <- proyectos_anon |>
+  haven::zap_labels() |>
+   mutate(across(everything(), as.character)) |> filter(institucion!=3)
+
+ proyectos_facso$anio_concurso <- as.numeric(proyectos_facso$anio_concurso)
+ proyectos_facso$monto_adjudicado <- as.numeric(proyectos_facso$monto_adjudicado)
+ 
+ # Recodificaer proyectos
+ 
+ concursos_prime <- c("Iniciación en Investigación",
+                      "Postdoctorado",
+                      "Regular")
+ 
+ proy_etiquetas <- proy_etiquetas |> 
+  dplyr::filter(proyecto_facso=="Sí" & !is.na(id_ir) & institucion!="FACSO") |>
+   mutate(instrumento_rec = case_when(
+    instrumento %in% concursos_prime ~ instrumento,  # se mantiene tal cual
+    institucion == "Universidad de Chile" ~ "Universidad de Chile",
+    asociativo== "Sí" ~ "Concursos Asociativos",
+    inv_aplicada=="Sí" ~ "Concursos de Investigación Aplicada",
+    TRUE ~ "Otros"))
+
+
+# JCE ----
+
+load("input/jce_deptos.rdata")
+jce_deptos <- jce_deptos |> rename(departamento_ir=reparticion)
+
+load("input/jce_jerarquia.rdata")
+jce_jerarquia <- jce_jerarquia |> rename(jerarquia_ir=jerarquia)
+
+load("input/jce_sexo.rdata")
+jce_sexo <- jce_sexo |> rename(sexo_ir=sexo)
+
+total_jce <- sum(jce_sexo$jce, na.rm = TRUE)
+
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+ datos_filtrados_kpi <- reactive({
+    req(input$years_range)
+    dplyr::filter(
+      proyectos_facso,
+      dplyr::between(anio_concurso, input$years_range[1], input$years_range[2])
+    )
+  })
+  
+  # Reactive que calcula los KPIs a partir de los datos filtrados.
+  kpis <- reactive({
+    df <- datos_filtrados_kpi()
+    
+    list(
+      post        = nrow(df),
+      adjudicados = nrow(dplyr::filter(df, adjudicado == 1, proyecto_facso == 1)),
+      fondecyt    = nrow(dplyr::filter(df, concurso == "FONDECYT", adjudicado == 1, proyecto_facso == 1)),
+      asoc        = nrow(dplyr::filter(df, asociativo == 1, adjudicado == 1, institucion != "FACSO", proyecto_facso == 1)),
+      idi         = nrow(dplyr::filter(df, inv_aplicada == 1, adjudicado == 1, institucion != "FACSO")),
+      montos_mm   = sum(df$monto_adjudicado, na.rm = TRUE) / 1e6
+    )
+  })
+  
+  # Renderiza el panel de KPIs. Este bloque se re-ejecuta cada vez que kpis() cambia.
+  output$kpi_panel <- renderUI({
+    vals <- kpis()
+    
+    # Se usa layout_column_wrap para un diseño responsivo y moderno con bslib
+    layout_columns(
+      col_widths = breakpoints(
+      xl = c(2,2,2,2,2,2),
+      xxl = c(4,4,4,4,4,4)
+    ),
+      kpi_box("", scales::number(vals$post, big.mark = "."),
+              glue::glue("Postulaciones ({input$years_range[1]}–{input$years_range[2]})"),
+              bs_icon("folder-plus")),
+      kpi_box("", scales::number(vals$adjudicados, big.mark = "."),
+              glue::glue("Adjudicados ({input$years_range[1]}–{input$years_range[2]})"),
+              bs_icon("check2-circle"), theme = "success"),
+      kpi_box("", scales::number(vals$fondecyt, big.mark = "."),
+              "FONDECYT adjudicados", bs_icon("search"), theme = "info"),
+      kpi_box("", scales::number(vals$asoc, big.mark = "."),
+              "Proyectos asociativos", bs_icon("people-fill"), theme = "warning"),
+      kpi_box("", scales::number(vals$idi, big.mark = "."),
+              "Investigación aplicada", bs_icon("lightbulb-fill")),
+      kpi_box("", glue::glue("{scales::number(vals$montos_mm, accuracy = 0.01, big.mark='.', decimal.mark=',')}"),
+              "Monto adjudicado (MM$)", bs_icon("cash-coin"), theme = "success")
+    )
+  })
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+  datos_filtrados_plot <- reactive({
+    req(input$years_range_b, length(input$years_range_b) == 2)
+
+    has_any <- function(x) !is.null(x) && length(x) > 0
+
+    df_plot <- proy_etiquetas %>%
+      mutate(anio_concurso = suppressWarnings(as.integer(anio_concurso))) %>%
+      filter(
+        !is.na(anio_concurso),
+        estado_proyecto!="Postulado",
+        anio_concurso >= as.integer(input$years_range_b[1]),
+        anio_concurso <= as.integer(input$years_range_b[2])
+      )
+
+    if (has_any(input$sexo))         df_plot <- df_plot %>% filter(sexo_ir %in% input$sexo)
+    if (has_any(input$departamento)) df_plot <- df_plot %>% filter(departamento_ir %in% input$departamento)
+    if (has_any(input$jerarquia))    df_plot <- df_plot %>% filter(jerarquia_ir %in% input$jerarquia)
+    if (has_any(input$instrumento))  df_plot <- df_plot %>% filter(instrumento_rec %in% input$instrumento)
+
+    df_plot
+  })
+
+  # ---- 2) Serie anual (postulados vs adjudicados) ----
+  serie_anual <- reactive({
+    df_plot <- datos_filtrados_plot()
+
+    validate(need(nrow(df_plot) > 0, "No hay datos para los filtros seleccionados."))
+
+    df_plot <- df_plot %>%
+      mutate(
+        anio_concurso = suppressWarnings(as.integer(anio_concurso)),
+        adj = trimws(as.character(adjudicado)) == "Sí"   # "1" cuenta como adjudicado
+      )
+
+    all_years <- seq(min(df_plot$anio_concurso, na.rm = TRUE),
+                     max(df_plot$anio_concurso, na.rm = TRUE), by = 1)
+
+    df_plot %>%
+      group_by(anio_concurso) %>%
+      summarise(
+        postulados  = n(),
+        adjudicados = sum(adj, na.rm = TRUE),
+        .groups = "drop"
+      ) %>%
+      complete(anio_concurso = all_years,
+               fill = list(postulados = 0, adjudicados = 0)) %>%
+      pivot_longer(
+        cols = c(postulados, adjudicados),
+        names_to = "tipo",
+        values_to = "n"
+      ) %>%
+      mutate(
+        tipo = factor(tipo,
+                      levels = c("postulados", "adjudicados"),
+                      labels = c("Postulados", "Adjudicados"))
+      ) %>%
+      arrange(anio_concurso, tipo)
+  })
+
+  # ---- 3) Gráfico Plotly (líneas) ----
+output$plot <- renderPlotly({
+  df_plot_long <- serie_anual()
+
+  # Helpers para títulos
+  join_or_all <- function(v, all_lbl = "Todos") {
+    if (is.null(v) || length(v) == 0) all_lbl else paste(v, collapse = ", ")
+  }
+
+  title_text <- sprintf(
+    "Proyectos postulados y adjudicados (%d–%d)<br><sup>Género: %s | Depto: %s | Jerarquía: %s | Instrumento: %s<\u002fsup>",
+    as.integer(input$years_range_b[1]), as.integer(input$years_range_b[2]),
+    join_or_all(input$sexo), join_or_all(input$departamento),
+    join_or_all(input$jerarquia), join_or_all(input$instrumento)
+  )
+
+  plot_ly() %>%
+    add_trace(
+      data = dplyr::filter(df_plot_long, tipo == "Postulados"),
+      x = ~anio_concurso, y = ~n,
+      type = "scatter", mode = "lines+markers",
+      name = "Postulados",
+      hovertemplate = "<b>Año:<\u002fb> %{x}<br><b>Postulados:<\u002fb> %{y}<extra><\u002fextra>"
+    ) %>%
+    add_trace(
+      data = dplyr::filter(df_plot_long, tipo == "Adjudicados"),
+      x = ~anio_concurso, y = ~n,
+      type = "scatter", mode = "lines+markers",
+      name = "Adjudicados",
+      hovertemplate = "<b>Año:<\u002fb> %{x}<br><b>Adjudicados:<\u002fb> %{y}<extra><\u002fextra>"
+    ) %>%
+    layout(
+      title = list(text = title_text, x = 0.05),
+      xaxis = list(title = "Año de concurso", dtick = 1),
+      yaxis = list(title = "Número de proyectos", rangemode = "tozero"),
+      legend = list(title = list(text = "Serie")),
+      margin = list(l = 60, r = 20, t = 80, b = 50)
+    )
+})
+
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+
+datos_filtrados_vigentes <- reactive({
+  dplyr::filter(proy_etiquetas, en_ejecucion == "Sí")
+})
+
+kpis_vig <- reactive({
+  df_vig <- datos_filtrados_vigentes()
+  vig <- nrow(df_vig)
+  list(
+    vigentes     = vig,
+    vigentes_jce = vig / total_jce  # total_jce debe existir y ser numérico
+  )
+})
+
+output$kpi_vigentes <- renderUI({
+  vals_vig <- kpis_vig()
+  
+  # A veces, 'height: 100%' no funciona si el contenedor padre (el sidebar)
+  # no tiene una altura definida. Un método más robusto es usar posicionamiento
+  # absoluto para que el 'div' se expanda y llene el espacio del sidebar.
+  div(
+    style = paste(
+      "position: absolute;",
+      # Definimos los bordes para que el div se estire, dejando un pequeño margen.
+      "top: 1rem; bottom: 1rem; left: 1rem; right: 1rem;",
+      # Mantenemos la configuración de flexbox para distribuir los kpi_box.
+      "display: flex; flex-direction: column; gap: 1rem;"
+    ),
+    
+    # Con el contenedor principal ocupando todo el alto, 'flex-grow: 1'
+    # ahora funcionará como se espera, haciendo que cada kpi_box se expanda.
+    kpi_box(
+      "", 
+      scales::number(vals_vig$vigentes, big.mark = "."),
+      "Proyectos Vigentes",
+      bs_icon("play-btn-fill"),
+      style = "flex-grow: 1;"
+    ),
+    
+    kpi_box(
+      "", 
+      scales::number(vals_vig$vigentes_jce, big.mark = ".", accuracy = 0.01),
+      "Proyectos Vigentes por JCE",
+      bs_icon("collection-play-fill"), 
+      theme = "success",
+      style = "flex-grow: 1;"
+    )
+  )
+})
+
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+# (1) Render del treemap + registro del evento
+output$treemap_inst <- renderPlotly({
+  d <- proy_etiquetas |>
+    filter(en_ejecucion == "Sí", !is.na(instrumento), instrumento != "") |>
+    count(instrumento, sort = TRUE)
+  req(nrow(d) > 0)
+
+  root_label <- "Proyectos en ejecución por tipo de Instrumento"
+  labels  <- c(root_label, d$instrumento)
+  parents <- c("",          rep(root_label, nrow(d)))
+  values  <- c(sum(d$n),    d$n)
+
+  p <- plot_ly(
+    type   = "treemap",
+    labels = labels,
+    parents = parents,
+    values  = values,
+    branchvalues = "total",
+    textinfo = "label+value+percent parent",
+    source  = "instree_qmd"
+  ) |>
+      layout(margin = list(t = 10, l = 0, r = 0, b = 0))
+
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+# --- Datos base (conteos) ----------------------------------------------------
+freqs_depto <- reactive({
+  proy_etiquetas %>%
+    dplyr::filter(en_ejecucion == "Sí", !is.na(departamento_ir), departamento_ir != "") %>%
+    dplyr::count(departamento_ir, sort = TRUE)
+})
+
+# --- Datos combinados con JCE y valor según switch ---------------------------
+depto_valores <- reactive({
+  # 1) Partimos del conteo: solo aparecen deptos CON proyectos
+  d <- freqs_depto() %>%                    # n por departamento_ir
+    dplyr::mutate(departamento_ir = trimws(departamento_ir)) %>%
+    dplyr::filter(n > 0) %>%                # seguridad: nada con 0
+    dplyr::left_join(jce_deptos %>%
+                       dplyr::mutate(departamento_ir = trimws(departamento_ir)),
+                     by = "departamento_ir") %>%
+    dplyr::mutate(
+      jce = as.numeric(jce),
+      proy_por_jce = dplyr::if_else(!is.na(jce) & jce > 0, 
+                                    round(n / jce,2), 
+                                    NA_real_)
+    )
+
+  # 2) Elegimos métrica según el switch y filtramos lo inválido
+  if (isTRUE(input$use_jce_depto)) {
+    d <- d %>%
+      dplyr::filter(!is.na(jce), jce > 0) %>%  # si normalizamos, necesitamos JCE válida
+      dplyr::mutate(valor = proy_por_jce)
+  } else {
+    d <- d %>%
+      dplyr::mutate(valor = as.numeric(n))
+  }
+
+  # 3) Por si queda algo raro: solo valores positivos
+  d %>% dplyr::filter(is.finite(valor), valor > 0)
+})
+
+
+output$treemap_depto <- renderPlotly({
+  d <- depto_valores()
+  req(nrow(d) > 0)
+
+  root_label <- if (isTRUE(input$use_jce_depto)) {
+    "Proyectos/JCE por Departamento"
+  } else {
+    "Proyectos en ejecución por Departamento"
+  }
+
+  # Nodos
+  labels_children  <- d$departamento_ir
+  parents_children <- rep(root_label, nrow(d))
+  values_children  <- d$valor
+
+  # Raíz: debe ser la suma de los hijos cuando branchvalues = "total"
+  labels  <- c(root_label, labels_children)
+  parents <- c("",        parents_children)
+  values  <- c(sum(values_children, na.rm = TRUE), values_children)
+
+  # Enviar datos crudos para hover
+  # customdata columnas: [n_raw, jce, proy_por_jce]
+  children_custom <- cbind(d$n, d$jce, d$proy_por_jce)
+  custom_root     <- matrix(c(NA, NA, NA), nrow = 1)
+  custom_all      <- rbind(custom_root, children_custom)
+
+  hover_tmpl_raw <- paste0(
+    "<b>%{label}<\u002fb><br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra><\u002fextra>"
+  )
+
+  hover_tmpl_norm <- paste0(
+    "<b>%{label}<\u002fb><br>",
+    "Proy/JCE: %{value:.2f}<br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra><\u002fextra>"
+  )
+
+  hover_tmpl <- if (isTRUE(input$use_jce_depto)) hover_tmpl_norm else hover_tmpl_raw
+
+  plot_ly(
+    type       = "treemap",
+    labels     = labels,
+    parents    = parents,
+    values     = values,
+    branchvalues = "total",
+    textinfo   = "label+value+percent parent",
+    customdata = custom_all,
+    hovertemplate = hover_tmpl
+  ) |>
+    layout(margin = list(t = 5, l = 0, r = 0, b = 0))
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+# --- Datos base (conteos) ----------------------------------------------------
+freqs_jerarq <- reactive({
+  proy_etiquetas %>%
+    dplyr::filter(en_ejecucion == "Sí", !is.na(jerarquia_ir), jerarquia_ir != "") %>%
+    dplyr::count(jerarquia_ir, sort = TRUE)
+})
+
+# --- Datos combinados con JCE y valor según switch ---------------------------
+jerarq_valores <- reactive({
+  # 1) Partimos del conteo: solo aparecen deptos CON proyectos
+  d <- freqs_jerarq() %>%                    # n por departamento_ir
+    dplyr::mutate(jerarquia_ir = trimws(jerarquia_ir)) %>%
+    dplyr::filter(n > 0) %>%                # seguridad: nada con 0
+    dplyr::left_join(jce_jerarquia %>%
+                       dplyr::mutate(jerarquia_ir = trimws(jerarquia_ir)),
+                     by = "jerarquia_ir") %>%
+    dplyr::mutate(
+      jce = as.numeric(jce),
+      proy_por_jce = dplyr::if_else(!is.na(jce) & jce > 0, 
+                                    round(n / jce,2), 
+                                    NA_real_)
+    )
+
+  # 2) Elegimos métrica según el switch y filtramos lo inválido
+  if (isTRUE(input$use_jce_jerarq)) {
+    d <- d %>%
+      dplyr::filter(!is.na(jce), jce > 0) %>%  # si normalizamos, necesitamos JCE válida
+      dplyr::mutate(valor = proy_por_jce)
+  } else {
+    d <- d %>%
+      dplyr::mutate(valor = as.numeric(n))
+  }
+
+  # 3) Por si queda algo raro: solo valores positivos
+  d %>% dplyr::filter(is.finite(valor), valor > 0)
+})
+
+
+output$treemap_jerarq <- renderPlotly({
+  d <- jerarq_valores()
+  req(nrow(d) > 0)
+
+  root_label <- if (isTRUE(input$use_jce_jerarq)) {
+    "Proyectos/JCE por Jerarquía"
+  } else {
+    "Proyectos en ejecución por Jerarquía"
+  }
+
+  # Nodos
+  labels_children  <- d$jerarquia_ir
+  parents_children <- rep(root_label, nrow(d))
+  values_children  <- d$valor
+
+  # Raíz: debe ser la suma de los hijos cuando branchvalues = "total"
+  labels  <- c(root_label, labels_children)
+  parents <- c("",        parents_children)
+  values  <- c(sum(values_children, na.rm = TRUE), values_children)
+
+  # Enviar datos crudos para hover
+  # customdata columnas: [n_raw, jce, proy_por_jce]
+  children_custom <- cbind(d$n, d$jce, d$proy_por_jce)
+  custom_root     <- matrix(c(NA, NA, NA), nrow = 1)
+  custom_all      <- rbind(custom_root, children_custom)
+
+  hover_tmpl_raw <- paste0(
+    "<b>%{label}<\u002fb><br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra><\u002fextra>"
+  )
+
+  hover_tmpl_norm <- paste0(
+    "<b>%{label}<\u002fb><br>",
+    "Proy/JCE: %{value:.2f}<br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra><\u002fextra>"
+  )
+
+  hover_tmpl <- if (isTRUE(input$use_jce_jerarq)) hover_tmpl_norm else hover_tmpl_raw
+
+  plot_ly(
+    type       = "treemap",
+    labels     = labels,
+    parents    = parents,
+    values     = values,
+    branchvalues = "total",
+    textinfo   = "label+value+percent parent",
+    customdata = custom_all,
+    hovertemplate = hover_tmpl
+  ) |>
+    layout(margin = list(t = 10, l = 0, r = 0, b = 0))
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+# --- Datos base (conteos) ----------------------------------------------------
+freqs_genero <- reactive({
+  proy_etiquetas %>%
+    dplyr::filter(en_ejecucion == "Sí", !is.na(sexo_ir), sexo_ir != "") %>%
+    dplyr::count(sexo_ir, sort = TRUE)
+})
+
+# --- Datos combinados con JCE y valor según switch ---------------------------
+genero_valores <- reactive({
+  # 1) Partimos del conteo: solo aparecen deptos CON proyectos
+  d <- freqs_genero() %>%                    # n por departamento_ir
+    dplyr::mutate(sexo_ir = trimws(sexo_ir)) %>%
+    dplyr::filter(n > 0) %>%                # seguridad: nada con 0
+    dplyr::left_join(jce_sexo %>%
+                       dplyr::mutate(sexo_ir = trimws(sexo_ir)),
+                     by = "sexo_ir") %>%
+    dplyr::mutate(
+      jce = as.numeric(jce),
+      proy_por_jce = dplyr::if_else(!is.na(jce) & jce > 0, 
+                                    round(n / jce,2), 
+                                    NA_real_)
+    )
+
+  # 2) Elegimos métrica según el switch y filtramos lo inválido
+  if (isTRUE(input$use_jce_sexo)) {
+    d <- d %>%
+      dplyr::filter(!is.na(jce), jce > 0) %>%  # si normalizamos, necesitamos JCE válida
+      dplyr::mutate(valor = proy_por_jce)
+  } else {
+    d <- d %>%
+      dplyr::mutate(valor = as.numeric(n))
+  }
+
+  # 3) Por si queda algo raro: solo valores positivos
+  d %>% dplyr::filter(is.finite(valor), valor > 0)
+})
+
+
+output$treemap_genero <- renderPlotly({
+  d <- genero_valores()
+  req(nrow(d) > 0)
+
+  root_label <- if (isTRUE(input$use_jce_sexo)) {
+    "Proyectos/JCE por genero"
+  } else {
+    "Proyectos en ejecución por genero"
+  }
+
+  # Nodos
+  labels_children  <- d$sexo_ir
+  parents_children <- rep(root_label, nrow(d))
+  values_children  <- d$valor
+
+  # Raíz: debe ser la suma de los hijos cuando branchvalues = "total"
+  labels  <- c(root_label, labels_children)
+  parents <- c("",        parents_children)
+  values  <- c(sum(values_children, na.rm = TRUE), values_children)
+
+  # Enviar datos crudos para hover
+  # customdata columnas: [n_raw, jce, proy_por_jce]
+  children_custom <- cbind(d$n, d$jce, d$proy_por_jce)
+  custom_root     <- matrix(c(NA, NA, NA), nrow = 1)
+  custom_all      <- rbind(custom_root, children_custom)
+
+  hover_tmpl_raw <- paste0(
+    "<b>%{label}<\u002fb><br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra><\u002fextra>"
+  )
+
+  hover_tmpl_norm <- paste0(
+    "<b>%{label}<\u002fb><br>",
+    "Proy/JCE: %{value:.2f}<br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra><\u002fextra>"
+  )
+
+  hover_tmpl <- if (isTRUE(input$use_jce_sexo)) hover_tmpl_norm else hover_tmpl_raw
+
+  plot_ly(
+    type       = "treemap",
+    labels     = labels,
+    parents    = parents,
+    values     = values,
+    branchvalues = "total",
+    textinfo   = "label+value+percent parent",
+    customdata = custom_all,
+    hovertemplate = hover_tmpl
+  ) |>
+    layout(margin = list(t = 10, l = 0, r = 0, b = 0))
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server-extras">
+ojs_define <- function(..., .session = shiny::getDefaultReactiveDomain()) {
+  quos <- rlang::enquos(...)
+  vars <- rlang::list2(...)
+  nm <- names(vars)
+  if (is.null(nm)) {
+    nm <- rep_len("", length(vars))
+  }
+  mapply(
+    function(q, nm, val) {
+      # Infer name, if possible
+      if (nm == "") {
+        tryCatch(
+          {
+            nm <- rlang::as_name(q)
+          },
+          error = function(e) {
+            code <- paste(collapse = "\n", deparse(rlang::f_rhs(q)))
+            stop(
+              "ojs_define() could not create a name for the argument: ",
+              code
+            )
+          }
+        )
+      }
+      .session$output[[nm]] <- val
+      outputOptions(.session$output, nm, suspendWhenHidden = FALSE)
+      .session$sendCustomMessage("ojs-export", list(name = nm))
+      NULL
+    },
+    quos,
+    nm,
+    vars,
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+  )
+  invisible()
+}
+</script>
+</p>
+<!--html_preserve-->
+<script type="application/shiny-prerendered" data-context="dependencies">
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap-select"]},{"type":"character","attributes":{},"value":["1.14.0-3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets/bootstrap-select-1.14.0-beta2"]},{"type":"character","attributes":{},"value":["assets/bootstrap-select-1.14.0-beta2"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/bootstrap-select.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap-select.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bslib-component-js"]},{"type":"character","attributes":{},"value":["0.9.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["components/dist"]}]},{"type":"NULL"},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["src"]}},"value":[{"type":"character","attributes":{},"value":["components.min.js"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["src","type"]}},"value":[{"type":"character","attributes":{},"value":["web-components.min.js"]},{"type":"character","attributes":{},"value":["module"]}]}]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["bslib"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bslib-component-css"]},{"type":"character","attributes":{},"value":["0.9.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["components/dist"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["components.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["bslib"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bslib-tag-require"]},{"type":"character","attributes":{},"value":["0.9.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["components"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tag-require.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["bslib"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ionrangeslider-javascript"]},{"type":"character","attributes":{},"value":["2.3.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www/shared/ionrangeslider"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/ion.rangeSlider.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shiny"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.10.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["strftime"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www/shared/strftime"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["strftime-min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shiny"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.10.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ionrangeslider-css"]},{"type":"character","attributes":{},"value":["2.3.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www/shared/ionrangeslider"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/ion.rangeSlider.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shiny"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.10.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["plotly-binding"]},{"type":"character","attributes":{},"value":["4.10.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["4.10.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ionrangeslider-javascript"]},{"type":"character","attributes":{},"value":["2.3.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www/shared/ionrangeslider"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/ion.rangeSlider.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shiny"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.10.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["strftime"]},{"type":"character","attributes":{},"value":["0.9.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www/shared/strftime"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["strftime-min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shiny"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.10.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ionrangeslider-css"]},{"type":"character","attributes":{},"value":["2.3.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www/shared/ionrangeslider"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/ion.rangeSlider.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shiny"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.10.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["0.9.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["assets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets-bindings.min.js"]},{"type":"character","attributes":{},"value":["shinyWidgets.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap-select"]},{"type":"character","attributes":{},"value":["1.13.8"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets/bootstrap-select"]},{"type":"character","attributes":{},"value":["assets/bootstrap-select"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/bootstrap-select.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap-select.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["0.9.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["assets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets-bindings.min.js"]},{"type":"character","attributes":{},"value":["shinyWidgets.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap-select"]},{"type":"character","attributes":{},"value":["1.13.8"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets/bootstrap-select"]},{"type":"character","attributes":{},"value":["assets/bootstrap-select"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/bootstrap-select.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap-select.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["0.9.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["assets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets-bindings.min.js"]},{"type":"character","attributes":{},"value":["shinyWidgets.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap-select"]},{"type":"character","attributes":{},"value":["1.13.8"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets/bootstrap-select"]},{"type":"character","attributes":{},"value":["assets/bootstrap-select"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/bootstrap-select.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap-select.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["0.9.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["assets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets-bindings.min.js"]},{"type":"character","attributes":{},"value":["shinyWidgets.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap-select"]},{"type":"character","attributes":{},"value":["1.13.8"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets/bootstrap-select"]},{"type":"character","attributes":{},"value":["assets/bootstrap-select"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/bootstrap-select.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap-select.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["plotly-binding"]},{"type":"character","attributes":{},"value":["4.10.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["4.10.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["0.9.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["assets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets-bindings.min.js"]},{"type":"character","attributes":{},"value":["shinyWidgets.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap-switch-css"]},{"type":"character","attributes":{},"value":["3.3.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets/bootstrap-switch"]},{"type":"character","attributes":{},"value":["assets/bootstrap-switch"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootstrap-switch-3.3.4/bootstrap-switch.min.js"]},{"type":"character","attributes":{},"value":["bootstrap-switch-3.4/bootstrap-switch.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap-switch-js"]},{"type":"character","attributes":{},"value":["3.3.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets/bootstrap-switch"]},{"type":"character","attributes":{},"value":["assets/bootstrap-switch"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootstrap-switch-3.3.4/bootstrap-switch.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["plotly-binding"]},{"type":"character","attributes":{},"value":["4.10.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["4.10.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["0.9.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["assets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets-bindings.min.js"]},{"type":"character","attributes":{},"value":["shinyWidgets.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap-switch-css"]},{"type":"character","attributes":{},"value":["3.3.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets/bootstrap-switch"]},{"type":"character","attributes":{},"value":["assets/bootstrap-switch"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootstrap-switch-3.3.4/bootstrap-switch.min.js"]},{"type":"character","attributes":{},"value":["bootstrap-switch-3.4/bootstrap-switch.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap-switch-js"]},{"type":"character","attributes":{},"value":["3.3.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets/bootstrap-switch"]},{"type":"character","attributes":{},"value":["assets/bootstrap-switch"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootstrap-switch-3.3.4/bootstrap-switch.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["plotly-binding"]},{"type":"character","attributes":{},"value":["4.10.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["4.10.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["0.9.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"character","attributes":{},"value":["assets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets-bindings.min.js"]},{"type":"character","attributes":{},"value":["shinyWidgets.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap-switch-css"]},{"type":"character","attributes":{},"value":["3.3.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets/bootstrap-switch"]},{"type":"character","attributes":{},"value":["assets/bootstrap-switch"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootstrap-switch-3.3.4/bootstrap-switch.min.js"]},{"type":"character","attributes":{},"value":["bootstrap-switch-3.4/bootstrap-switch.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap-switch-js"]},{"type":"character","attributes":{},"value":["3.3.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["href","file"]}},"value":[{"type":"character","attributes":{},"value":["shinyWidgets/bootstrap-switch"]},{"type":"character","attributes":{},"value":["assets/bootstrap-switch"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootstrap-switch-3.3.4/bootstrap-switch.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["shinyWidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.0"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmltools-fill"]},{"type":"character","attributes":{},"value":["0.5.8.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["fill"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["fill.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmltools"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.5.8.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.6.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.6.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["plotly-binding"]},{"type":"character","attributes":{},"value":["4.10.4"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["plotly"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["4.10.4"]}]}]}
+</script>
+<!--/html_preserve-->
+<!--html_preserve-->
+<script type="application/shiny-prerendered" data-context="execution_dependencies">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76]}},"value":[{"type":"character","attributes":{},"value":["base","bsicons","bslib","cachem","cli","compiler","data.table","datasets","dichromat","digest","dplyr","DT","evaluate","farver","fastmap","forcats","generics","ggplot2","glue","graphics","grDevices","grid","gtable","haven","hms","htmltools","htmlwidgets","httpuv","httr","jquerylib","jsonlite","knitr","labelled","later","lazyeval","lifecycle","lubridate","magrittr","memoise","methods","mime","pacman","pillar","pkgconfig","plotly","promises","purrr","R6","RColorBrewer","Rcpp","readr","rlang","rmarkdown","rstudioapi","sass","scales","shiny","shinyjs","shinyWidgets","stats","stringi","stringr","tibble","tidyr","tidyselect","tidyverse","timechange","tools","tzdb","utils","vctrs","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["4.5.1","0.1.2","0.9.0","1.1.0","3.6.5","4.5.1","1.17.6","4.5.1","2.0-0.1","0.6.37","1.1.4","0.33","1.0.4","2.1.2","1.2.0","1.0.0","0.1.4","3.5.2","1.8.0","4.5.1","4.5.1","4.5.1","0.3.6","2.5.5","1.1.3","0.5.8.1","1.6.4","1.6.16","1.4.7","0.1.4","2.0.0","1.50","2.14.1","1.4.2","0.2.2","1.0.4","1.9.4","2.0.3","2.0.1","4.5.1","0.13","0.5.1","1.11.0","2.0.3","4.10.4","1.3.3","1.0.4","2.6.1","1.1-3","1.0.14","2.1.5","1.1.6","2.29","0.17.1","0.4.10","1.4.0","1.10.0","2.1.0","0.9.0","4.5.1","1.8.7","1.5.1","3.3.0","1.3.1","1.2.1","2.0.0","0.3.0","4.5.1","0.5.0","4.5.1","0.6.5","0.4.2","3.0.2","0.52","1.8-4","2.3.10"]}]}]}
+</script>
+<!--/html_preserve-->
+
+
+<footer style="
+
+  position: fixed;
+
+  bottom: 0;
+
+  left: 0;
+
+  width: 100%;
+
+  background-color: #f5f5f5;
+
+  border-top: 1px solid #ddd;
+
+  color: #333;
+
+  text-align: center;
+
+  padding: 8px 0;
+
+  font-size: 13px;
+
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+
+  z-index: 1000;
+
+" class="bslib-grid-item html-fill-item">
+
+  © 2025 <strong>CINDAI – Facultad de Ciencias Sociales, Universidad de Chile</strong> ·
+
+  Versión <b>0.1.1-alpha</b> · Contenidos bajo licencia <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache 2.0</a>
+
+</footer>
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /container fluid -->
+
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (_event) {
+  if (window.bslib.Card) {
+    window.bslib.Card.initializeAllCards();
+  }
+}); 
+</script>
+  
+
+
+
+</body></html>

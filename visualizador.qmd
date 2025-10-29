@@ -1,0 +1,879 @@
+---
+title: "CINDAI -- Datos Abiertos"
+author: "Dirección de Investigación y Publicaciones"
+format:
+  dashboard:
+    theme: lux
+    css: styles.css
+    nav-buttons:
+      - icon: github
+        href: https://github.com/facso-investigacion/visualizador-cindai
+        target: _blank
+# logo: https://raw.githubusercontent.com/facso-investigacion/presentaciones/refs/heads/main/imagenes/logo-dip.png
+server: shiny
+execute: 
+ warning: false
+include-after-body: footer.html
+---
+
+```{r}
+#| context: setup
+#| include: false
+
+rm(list = ls())
+
+## Cargar librerías ----
+library(pacman)
+p_load(tidyverse, DT, shiny, shinyWidgets, haven, httr, bslib, bsicons, glue, scales, shinyjs, plotly, tidyr,
+       labelled)
+options(shiny.usecairo = TRUE)
+
+shinyWidgets:::html_dependency_picker_bs(
+  theme = bslib::bs_theme(version = 5)
+) # solucion mágica para que funcione shinyWidgets. Agregar #| include: false al chunk para que no aparezca una caja vacía
+```
+
+
+```{r}
+#| context: setup
+
+# Utilidades
+kpi_box <- function(title, value, subtitle = NULL, icon = bs_icon("bar-chart-fill"), theme = "primary", ...) {
+  value_box(
+    title = title,
+    value = value,
+    showcase = icon,
+    theme = theme,
+    p(subtitle),
+    ... # Pasa cualquier argumento adicional aquí
+  )
+}
+
+nav_card_link <- function(title, subtitle, icon, anchor) {
+  tags$a(
+    href = anchor, class = "card-link",
+    bslib::card(
+      class = "home-card",
+      bslib::card_header(
+        div(class = "row g-2 align-items-center",
+            div(class="col-auto", HTML(bs_icon(icon, size = 28))),
+            div(class="col", tags$strong(title))
+        )
+      ),
+      bslib::card_body(
+        tags$p(class = "text-muted small mb-0", subtitle)
+      )
+    )
+  )
+}
+
+```
+
+
+```{r}
+#| context: data
+
+
+## Cargar datos ----
+load("input/data-general-anon.rdata")
+load("input/data-proyectos-anon.rdata")
+
+
+# 1. Usamos haven::zap_labels() para eliminar etiquetas de 'haven' de todas las columnas.
+# 2. Convertimos todas las columnas a tipo 'character' para evitar problemas de compatibilidad.
+
+data <- data |>
+  haven::zap_labels() |>
+  mutate(across(everything(), as.character))
+
+proy_etiquetas <- proyectos_anon |>
+  mutate(across(
+    everything(),
+    ~ if (inherits(.x, "haven_labelled")) to_factor(.x) else .x
+  )) |> filter(institucion!="FACSO")
+
+proyectos_facso <- proyectos_anon
+
+ proyectos_facso <- proyectos_anon |>
+  haven::zap_labels() |>
+   mutate(across(everything(), as.character)) |> filter(institucion!=3)
+
+ proyectos_facso$anio_concurso <- as.numeric(proyectos_facso$anio_concurso)
+ proyectos_facso$monto_adjudicado <- as.numeric(proyectos_facso$monto_adjudicado)
+ 
+ # Recodificaer proyectos
+ 
+ concursos_prime <- c("Iniciación en Investigación",
+                      "Postdoctorado",
+                      "Regular")
+ 
+ proy_etiquetas <- proy_etiquetas |> 
+  dplyr::filter(proyecto_facso=="Sí" & !is.na(id_ir) & institucion!="FACSO") |>
+   mutate(instrumento_rec = case_when(
+    instrumento %in% concursos_prime ~ instrumento,  # se mantiene tal cual
+    institucion == "Universidad de Chile" ~ "Universidad de Chile",
+    asociativo== "Sí" ~ "Concursos Asociativos",
+    inv_aplicada=="Sí" ~ "Concursos de Investigación Aplicada",
+    TRUE ~ "Otros"))
+
+
+# JCE ----
+
+load("input/jce_deptos.rdata")
+jce_deptos <- jce_deptos |> rename(departamento_ir=reparticion)
+
+load("input/jce_jerarquia.rdata")
+jce_jerarquia <- jce_jerarquia |> rename(jerarquia_ir=jerarquia)
+
+load("input/jce_sexo.rdata")
+jce_sexo <- jce_sexo |> rename(sexo_ir=sexo)
+
+total_jce <- sum(jce_sexo$jce, na.rm = TRUE)
+
+```
+
+# Inicio
+
+```{r}
+bslib::layout_column_wrap(
+  width = 1/3, # Define que cada elemento ocupe 1/3 del ancho (3 por fila)
+  nav_card_link(
+    "Datos Generales",
+    "Datos históricos generales sobre proyectos postulados y adjudicados por académicos FACSO",
+    "clipboard-data-fill",
+    "#generales"
+  ),
+  nav_card_link(
+    "Serie Temporal",
+    "Evolución de proyectos postulados y adjudicados",
+    "graph-up-arrow",
+    "#historico"
+  ),
+  nav_card_link(
+    "Proyectos en Ejecución",
+    "Descriptivos de Proyectos en Ejecución",
+    "collection-play-fill",
+    "#en_ejec"
+  )
+)
+
+```
+
+
+```{js}
+document.addEventListener('click', function (e) {
+  const a = e.target.closest('a.card-link[href^="#"]');
+  if (!a) return;
+  e.preventDefault();
+
+  const hash = a.getAttribute('href');
+
+  const btn = document.querySelector(
+    `a.nav-link[href="${hash}"], button.nav-link[data-bs-target="${hash}"]`
+  );
+
+  if (btn) {
+    if (window.bootstrap && bootstrap.Tab) {
+      const tab = bootstrap.Tab.getOrCreateInstance(btn);
+      tab.show();
+    } else {
+      btn.click();
+    }
+
+    setTimeout(() => {
+      const target = document.querySelector(hash);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  } else {
+    location.hash = hash;
+  }
+});
+```
+
+
+# Datos generales {#generales}
+
+## KPI  {height=70%}
+
+```{r}
+# Panel con KPIs
+uiOutput("kpi_panel")
+```
+
+## sliders {height=30%}
+
+```{r}
+
+sliderInput(
+  "years_range", "Rango de años",
+  min = min(proyectos_facso$anio_concurso, na.rm = TRUE),
+  max = max(proyectos_facso$anio_concurso, na.rm = TRUE),
+  value = c(max(proyectos_facso$anio_concurso, na.rm = TRUE) - 5,
+            max(proyectos_facso$anio_concurso, na.rm = TRUE) - 1),
+  step = 1, sep = ""
+)
+```
+
+
+```{r}
+#| context: server
+
+ datos_filtrados_kpi <- reactive({
+    req(input$years_range)
+    dplyr::filter(
+      proyectos_facso,
+      dplyr::between(anio_concurso, input$years_range[1], input$years_range[2])
+    )
+  })
+  
+  # Reactive que calcula los KPIs a partir de los datos filtrados.
+  kpis <- reactive({
+    df <- datos_filtrados_kpi()
+    
+    list(
+      post        = nrow(df),
+      adjudicados = nrow(dplyr::filter(df, adjudicado == 1, proyecto_facso == 1)),
+      fondecyt    = nrow(dplyr::filter(df, concurso == "FONDECYT", adjudicado == 1, proyecto_facso == 1)),
+      asoc        = nrow(dplyr::filter(df, asociativo == 1, adjudicado == 1, institucion != "FACSO", proyecto_facso == 1)),
+      idi         = nrow(dplyr::filter(df, inv_aplicada == 1, adjudicado == 1, institucion != "FACSO")),
+      montos_mm   = sum(df$monto_adjudicado, na.rm = TRUE) / 1e6
+    )
+  })
+  
+  # Renderiza el panel de KPIs. Este bloque se re-ejecuta cada vez que kpis() cambia.
+  output$kpi_panel <- renderUI({
+    vals <- kpis()
+    
+    # Se usa layout_column_wrap para un diseño responsivo y moderno con bslib
+    layout_columns(
+      col_widths = breakpoints(
+      xl = c(2,2,2,2,2,2),
+      xxl = c(4,4,4,4,4,4)
+    ),
+      kpi_box("", scales::number(vals$post, big.mark = "."),
+              glue::glue("Postulaciones ({input$years_range[1]}–{input$years_range[2]})"),
+              bs_icon("folder-plus")),
+      kpi_box("", scales::number(vals$adjudicados, big.mark = "."),
+              glue::glue("Adjudicados ({input$years_range[1]}–{input$years_range[2]})"),
+              bs_icon("check2-circle"), theme = "success"),
+      kpi_box("", scales::number(vals$fondecyt, big.mark = "."),
+              "FONDECYT adjudicados", bs_icon("search"), theme = "info"),
+      kpi_box("", scales::number(vals$asoc, big.mark = "."),
+              "Proyectos asociativos", bs_icon("people-fill"), theme = "warning"),
+      kpi_box("", scales::number(vals$idi, big.mark = "."),
+              "Investigación aplicada", bs_icon("lightbulb-fill")),
+      kpi_box("", glue::glue("{scales::number(vals$montos_mm, accuracy = 0.01, big.mark='.', decimal.mark=',')}"),
+              "Monto adjudicado (MM$)", bs_icon("cash-coin"), theme = "success")
+    )
+  })
+```
+
+# Serie Temporal {#historico}
+
+## Plot 
+
+```{r}
+plotlyOutput("plot")
+```
+
+```{r}
+#| context: server
+
+  datos_filtrados_plot <- reactive({
+    req(input$years_range_b, length(input$years_range_b) == 2)
+
+    has_any <- function(x) !is.null(x) && length(x) > 0
+
+    df_plot <- proy_etiquetas %>%
+      mutate(anio_concurso = suppressWarnings(as.integer(anio_concurso))) %>%
+      filter(
+        !is.na(anio_concurso),
+        estado_proyecto!="Postulado",
+        anio_concurso >= as.integer(input$years_range_b[1]),
+        anio_concurso <= as.integer(input$years_range_b[2])
+      )
+
+    if (has_any(input$sexo))         df_plot <- df_plot %>% filter(sexo_ir %in% input$sexo)
+    if (has_any(input$departamento)) df_plot <- df_plot %>% filter(departamento_ir %in% input$departamento)
+    if (has_any(input$jerarquia))    df_plot <- df_plot %>% filter(jerarquia_ir %in% input$jerarquia)
+    if (has_any(input$instrumento))  df_plot <- df_plot %>% filter(instrumento_rec %in% input$instrumento)
+
+    df_plot
+  })
+
+  # ---- 2) Serie anual (postulados vs adjudicados) ----
+  serie_anual <- reactive({
+    df_plot <- datos_filtrados_plot()
+
+    validate(need(nrow(df_plot) > 0, "No hay datos para los filtros seleccionados."))
+
+    df_plot <- df_plot %>%
+      mutate(
+        anio_concurso = suppressWarnings(as.integer(anio_concurso)),
+        adj = trimws(as.character(adjudicado)) == "Sí"   # "1" cuenta como adjudicado
+      )
+
+    all_years <- seq(min(df_plot$anio_concurso, na.rm = TRUE),
+                     max(df_plot$anio_concurso, na.rm = TRUE), by = 1)
+
+    df_plot %>%
+      group_by(anio_concurso) %>%
+      summarise(
+        postulados  = n(),
+        adjudicados = sum(adj, na.rm = TRUE),
+        .groups = "drop"
+      ) %>%
+      complete(anio_concurso = all_years,
+               fill = list(postulados = 0, adjudicados = 0)) %>%
+      pivot_longer(
+        cols = c(postulados, adjudicados),
+        names_to = "tipo",
+        values_to = "n"
+      ) %>%
+      mutate(
+        tipo = factor(tipo,
+                      levels = c("postulados", "adjudicados"),
+                      labels = c("Postulados", "Adjudicados"))
+      ) %>%
+      arrange(anio_concurso, tipo)
+  })
+
+  # ---- 3) Gráfico Plotly (líneas) ----
+output$plot <- renderPlotly({
+  df_plot_long <- serie_anual()
+
+  # Helpers para títulos
+  join_or_all <- function(v, all_lbl = "Todos") {
+    if (is.null(v) || length(v) == 0) all_lbl else paste(v, collapse = ", ")
+  }
+
+  title_text <- sprintf(
+    "Proyectos postulados y adjudicados (%d–%d)<br><sup>Género: %s | Depto: %s | Jerarquía: %s | Instrumento: %s</sup>",
+    as.integer(input$years_range_b[1]), as.integer(input$years_range_b[2]),
+    join_or_all(input$sexo), join_or_all(input$departamento),
+    join_or_all(input$jerarquia), join_or_all(input$instrumento)
+  )
+
+  plot_ly() %>%
+    add_trace(
+      data = dplyr::filter(df_plot_long, tipo == "Postulados"),
+      x = ~anio_concurso, y = ~n,
+      type = "scatter", mode = "lines+markers",
+      name = "Postulados",
+      hovertemplate = "<b>Año:</b> %{x}<br><b>Postulados:</b> %{y}<extra></extra>"
+    ) %>%
+    add_trace(
+      data = dplyr::filter(df_plot_long, tipo == "Adjudicados"),
+      x = ~anio_concurso, y = ~n,
+      type = "scatter", mode = "lines+markers",
+      name = "Adjudicados",
+      hovertemplate = "<b>Año:</b> %{x}<br><b>Adjudicados:</b> %{y}<extra></extra>"
+    ) %>%
+    layout(
+      title = list(text = title_text, x = 0.05),
+      xaxis = list(title = "Año de concurso", dtick = 1),
+      yaxis = list(title = "Número de proyectos", rangemode = "tozero"),
+      legend = list(title = list(text = "Serie")),
+      margin = list(l = 60, r = 20, t = 80, b = 50)
+    )
+})
+
+```
+
+
+## {.sidebar width="30%"}
+
+```{r}
+# Slider de años
+sliderInput(
+  "years_range_b", "Rango de años",
+  min = min(proy_etiquetas$anio_concurso, na.rm = TRUE),
+  max = max(proy_etiquetas$anio_concurso, na.rm = TRUE),
+  value = c(max(proy_etiquetas$anio_concurso, na.rm = TRUE) - 10,
+            max(proy_etiquetas$anio_concurso, na.rm = TRUE) - 1),
+  step = 1, sep = ""
+)
+
+pickerInput(
+  inputId = "sexo",
+  label = "Seleccionar Género del IR",
+  choices = sort(unique(na.omit(proy_etiquetas$sexo_ir))),
+  selected = NULL,
+  multiple = TRUE,
+  options = pickerOptions(
+    liveSearch = TRUE,
+    noneSelectedText = "Seleccione Género",
+    actionsBox = TRUE
+  )
+)
+
+pickerInput(
+  inputId = "departamento",
+  label = "Seleccionar Departamento del IR",
+  choices = sort(unique(na.omit(proy_etiquetas$departamento_ir))),
+  selected = NULL,
+  multiple = TRUE,
+  options = pickerOptions(
+    liveSearch = TRUE,
+    noneSelectedText = "Seleccione Departamento",
+    actionsBox = TRUE
+  )
+)
+
+pickerInput(
+  inputId = "jerarquia",
+  label = "Seleccionar Jerarquía del IR",
+  choices = sort(unique(na.omit(proy_etiquetas$jerarquia_ir))),
+  selected = NULL,
+  multiple = TRUE,
+  options = pickerOptions(
+    liveSearch = TRUE,
+    noneSelectedText = "Seleccione Jerarquía",
+    actionsBox = TRUE
+  )
+)
+
+pickerInput(
+  inputId = "instrumento",
+  label = "Seleccionar Instrumento",
+  choices = sort(unique(na.omit(proy_etiquetas$instrumento_rec))),
+  selected = NULL,
+  multiple = TRUE,
+  options = pickerOptions(
+    liveSearch = TRUE,
+    noneSelectedText = "Seleccione Instrumento",
+    actionsBox = TRUE
+  )
+)
+
+
+```
+
+# Proyectos en ejecución {#en_ejec}
+
+## {.sidebar width="20%"}
+
+```{r}
+uiOutput("kpi_vigentes")
+```
+
+```{r}
+#| context: server
+
+
+datos_filtrados_vigentes <- reactive({
+  dplyr::filter(proy_etiquetas, en_ejecucion == "Sí")
+})
+
+kpis_vig <- reactive({
+  df_vig <- datos_filtrados_vigentes()
+  vig <- nrow(df_vig)
+  list(
+    vigentes     = vig,
+    vigentes_jce = vig / total_jce  # total_jce debe existir y ser numérico
+  )
+})
+
+output$kpi_vigentes <- renderUI({
+  vals_vig <- kpis_vig()
+  
+  # A veces, 'height: 100%' no funciona si el contenedor padre (el sidebar)
+  # no tiene una altura definida. Un método más robusto es usar posicionamiento
+  # absoluto para que el 'div' se expanda y llene el espacio del sidebar.
+  div(
+    style = paste(
+      "position: absolute;",
+      # Definimos los bordes para que el div se estire, dejando un pequeño margen.
+      "top: 1rem; bottom: 1rem; left: 1rem; right: 1rem;",
+      # Mantenemos la configuración de flexbox para distribuir los kpi_box.
+      "display: flex; flex-direction: column; gap: 1rem;"
+    ),
+    
+    # Con el contenedor principal ocupando todo el alto, 'flex-grow: 1'
+    # ahora funcionará como se espera, haciendo que cada kpi_box se expanda.
+    kpi_box(
+      "", 
+      scales::number(vals_vig$vigentes, big.mark = "."),
+      "Proyectos Vigentes",
+      bs_icon("play-btn-fill"),
+      style = "flex-grow: 1;"
+    ),
+    
+    kpi_box(
+      "", 
+      scales::number(vals_vig$vigentes_jce, big.mark = ".", accuracy = 0.01),
+      "Proyectos Vigentes por JCE",
+      bs_icon("collection-play-fill"), 
+      theme = "success",
+      style = "flex-grow: 1;"
+    )
+  )
+})
+
+```
+
+
+## a
+
+```{r}
+plotlyOutput("treemap_inst")
+```
+
+```{r}
+#| context: server
+
+# (1) Render del treemap + registro del evento
+output$treemap_inst <- renderPlotly({
+  d <- proy_etiquetas |>
+    filter(en_ejecucion == "Sí", !is.na(instrumento), instrumento != "") |>
+    count(instrumento, sort = TRUE)
+  req(nrow(d) > 0)
+
+  root_label <- "Proyectos en ejecución por tipo de Instrumento"
+  labels  <- c(root_label, d$instrumento)
+  parents <- c("",          rep(root_label, nrow(d)))
+  values  <- c(sum(d$n),    d$n)
+
+  p <- plot_ly(
+    type   = "treemap",
+    labels = labels,
+    parents = parents,
+    values  = values,
+    branchvalues = "total",
+    textinfo = "label+value+percent parent",
+    source  = "instree_qmd"
+  ) |>
+      layout(margin = list(t = 10, l = 0, r = 0, b = 0))
+
+})
+```
+
+```{r}
+shinyWidgets::switchInput(
+  inputId  = "use_jce_depto",
+  label    = "Mostrar",
+  onLabel  = "Proyectos/JCE",
+  offLabel = "Total",
+  size     = "mini",
+  value    = FALSE
+)
+
+plotlyOutput("treemap_depto")
+```
+
+
+```{r}
+#| context: server
+
+# --- Datos base (conteos) ----------------------------------------------------
+freqs_depto <- reactive({
+  proy_etiquetas %>%
+    dplyr::filter(en_ejecucion == "Sí", !is.na(departamento_ir), departamento_ir != "") %>%
+    dplyr::count(departamento_ir, sort = TRUE)
+})
+
+# --- Datos combinados con JCE y valor según switch ---------------------------
+depto_valores <- reactive({
+  # 1) Partimos del conteo: solo aparecen deptos CON proyectos
+  d <- freqs_depto() %>%                    # n por departamento_ir
+    dplyr::mutate(departamento_ir = trimws(departamento_ir)) %>%
+    dplyr::filter(n > 0) %>%                # seguridad: nada con 0
+    dplyr::left_join(jce_deptos %>%
+                       dplyr::mutate(departamento_ir = trimws(departamento_ir)),
+                     by = "departamento_ir") %>%
+    dplyr::mutate(
+      jce = as.numeric(jce),
+      proy_por_jce = dplyr::if_else(!is.na(jce) & jce > 0, 
+                                    round(n / jce,2), 
+                                    NA_real_)
+    )
+
+  # 2) Elegimos métrica según el switch y filtramos lo inválido
+  if (isTRUE(input$use_jce_depto)) {
+    d <- d %>%
+      dplyr::filter(!is.na(jce), jce > 0) %>%  # si normalizamos, necesitamos JCE válida
+      dplyr::mutate(valor = proy_por_jce)
+  } else {
+    d <- d %>%
+      dplyr::mutate(valor = as.numeric(n))
+  }
+
+  # 3) Por si queda algo raro: solo valores positivos
+  d %>% dplyr::filter(is.finite(valor), valor > 0)
+})
+
+
+output$treemap_depto <- renderPlotly({
+  d <- depto_valores()
+  req(nrow(d) > 0)
+
+  root_label <- if (isTRUE(input$use_jce_depto)) {
+    "Proyectos/JCE por Departamento"
+  } else {
+    "Proyectos en ejecución por Departamento"
+  }
+
+  # Nodos
+  labels_children  <- d$departamento_ir
+  parents_children <- rep(root_label, nrow(d))
+  values_children  <- d$valor
+
+  # Raíz: debe ser la suma de los hijos cuando branchvalues = "total"
+  labels  <- c(root_label, labels_children)
+  parents <- c("",        parents_children)
+  values  <- c(sum(values_children, na.rm = TRUE), values_children)
+
+  # Enviar datos crudos para hover
+  # customdata columnas: [n_raw, jce, proy_por_jce]
+  children_custom <- cbind(d$n, d$jce, d$proy_por_jce)
+  custom_root     <- matrix(c(NA, NA, NA), nrow = 1)
+  custom_all      <- rbind(custom_root, children_custom)
+
+  hover_tmpl_raw <- paste0(
+    "<b>%{label}</b><br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra></extra>"
+  )
+
+  hover_tmpl_norm <- paste0(
+    "<b>%{label}</b><br>",
+    "Proy/JCE: %{value:.2f}<br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra></extra>"
+  )
+
+  hover_tmpl <- if (isTRUE(input$use_jce_depto)) hover_tmpl_norm else hover_tmpl_raw
+
+  plot_ly(
+    type       = "treemap",
+    labels     = labels,
+    parents    = parents,
+    values     = values,
+    branchvalues = "total",
+    textinfo   = "label+value+percent parent",
+    customdata = custom_all,
+    hovertemplate = hover_tmpl
+  ) |>
+    layout(margin = list(t = 5, l = 0, r = 0, b = 0))
+})
+```
+
+## b
+
+```{r}
+shinyWidgets::switchInput(
+  inputId  = "use_jce_jerarq",
+  label    = "Mostrar",
+  onLabel  = "Proyectos/JCE",
+  offLabel = "Total",
+  size     = "small",
+  value    = FALSE
+)
+
+plotlyOutput("treemap_jerarq")
+```
+
+```{r}
+#| context: server
+
+# --- Datos base (conteos) ----------------------------------------------------
+freqs_jerarq <- reactive({
+  proy_etiquetas %>%
+    dplyr::filter(en_ejecucion == "Sí", !is.na(jerarquia_ir), jerarquia_ir != "") %>%
+    dplyr::count(jerarquia_ir, sort = TRUE)
+})
+
+# --- Datos combinados con JCE y valor según switch ---------------------------
+jerarq_valores <- reactive({
+  # 1) Partimos del conteo: solo aparecen deptos CON proyectos
+  d <- freqs_jerarq() %>%                    # n por departamento_ir
+    dplyr::mutate(jerarquia_ir = trimws(jerarquia_ir)) %>%
+    dplyr::filter(n > 0) %>%                # seguridad: nada con 0
+    dplyr::left_join(jce_jerarquia %>%
+                       dplyr::mutate(jerarquia_ir = trimws(jerarquia_ir)),
+                     by = "jerarquia_ir") %>%
+    dplyr::mutate(
+      jce = as.numeric(jce),
+      proy_por_jce = dplyr::if_else(!is.na(jce) & jce > 0, 
+                                    round(n / jce,2), 
+                                    NA_real_)
+    )
+
+  # 2) Elegimos métrica según el switch y filtramos lo inválido
+  if (isTRUE(input$use_jce_jerarq)) {
+    d <- d %>%
+      dplyr::filter(!is.na(jce), jce > 0) %>%  # si normalizamos, necesitamos JCE válida
+      dplyr::mutate(valor = proy_por_jce)
+  } else {
+    d <- d %>%
+      dplyr::mutate(valor = as.numeric(n))
+  }
+
+  # 3) Por si queda algo raro: solo valores positivos
+  d %>% dplyr::filter(is.finite(valor), valor > 0)
+})
+
+
+output$treemap_jerarq <- renderPlotly({
+  d <- jerarq_valores()
+  req(nrow(d) > 0)
+
+  root_label <- if (isTRUE(input$use_jce_jerarq)) {
+    "Proyectos/JCE por Jerarquía"
+  } else {
+    "Proyectos en ejecución por Jerarquía"
+  }
+
+  # Nodos
+  labels_children  <- d$jerarquia_ir
+  parents_children <- rep(root_label, nrow(d))
+  values_children  <- d$valor
+
+  # Raíz: debe ser la suma de los hijos cuando branchvalues = "total"
+  labels  <- c(root_label, labels_children)
+  parents <- c("",        parents_children)
+  values  <- c(sum(values_children, na.rm = TRUE), values_children)
+
+  # Enviar datos crudos para hover
+  # customdata columnas: [n_raw, jce, proy_por_jce]
+  children_custom <- cbind(d$n, d$jce, d$proy_por_jce)
+  custom_root     <- matrix(c(NA, NA, NA), nrow = 1)
+  custom_all      <- rbind(custom_root, children_custom)
+
+  hover_tmpl_raw <- paste0(
+    "<b>%{label}</b><br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra></extra>"
+  )
+
+  hover_tmpl_norm <- paste0(
+    "<b>%{label}</b><br>",
+    "Proy/JCE: %{value:.2f}<br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra></extra>"
+  )
+
+  hover_tmpl <- if (isTRUE(input$use_jce_jerarq)) hover_tmpl_norm else hover_tmpl_raw
+
+  plot_ly(
+    type       = "treemap",
+    labels     = labels,
+    parents    = parents,
+    values     = values,
+    branchvalues = "total",
+    textinfo   = "label+value+percent parent",
+    customdata = custom_all,
+    hovertemplate = hover_tmpl
+  ) |>
+    layout(margin = list(t = 10, l = 0, r = 0, b = 0))
+})
+```
+
+```{r}
+shinyWidgets::switchInput(
+  inputId  = "use_jce_sexo",
+  label    = "Mostrar",
+  onLabel  = "Proyectos/JCE",
+  offLabel = "Total",
+  size     = "small",
+  value    = FALSE
+)
+
+plotlyOutput("treemap_genero")
+```
+
+```{r}
+#| context: server
+
+# --- Datos base (conteos) ----------------------------------------------------
+freqs_genero <- reactive({
+  proy_etiquetas %>%
+    dplyr::filter(en_ejecucion == "Sí", !is.na(sexo_ir), sexo_ir != "") %>%
+    dplyr::count(sexo_ir, sort = TRUE)
+})
+
+# --- Datos combinados con JCE y valor según switch ---------------------------
+genero_valores <- reactive({
+  # 1) Partimos del conteo: solo aparecen deptos CON proyectos
+  d <- freqs_genero() %>%                    # n por departamento_ir
+    dplyr::mutate(sexo_ir = trimws(sexo_ir)) %>%
+    dplyr::filter(n > 0) %>%                # seguridad: nada con 0
+    dplyr::left_join(jce_sexo %>%
+                       dplyr::mutate(sexo_ir = trimws(sexo_ir)),
+                     by = "sexo_ir") %>%
+    dplyr::mutate(
+      jce = as.numeric(jce),
+      proy_por_jce = dplyr::if_else(!is.na(jce) & jce > 0, 
+                                    round(n / jce,2), 
+                                    NA_real_)
+    )
+
+  # 2) Elegimos métrica según el switch y filtramos lo inválido
+  if (isTRUE(input$use_jce_sexo)) {
+    d <- d %>%
+      dplyr::filter(!is.na(jce), jce > 0) %>%  # si normalizamos, necesitamos JCE válida
+      dplyr::mutate(valor = proy_por_jce)
+  } else {
+    d <- d %>%
+      dplyr::mutate(valor = as.numeric(n))
+  }
+
+  # 3) Por si queda algo raro: solo valores positivos
+  d %>% dplyr::filter(is.finite(valor), valor > 0)
+})
+
+
+output$treemap_genero <- renderPlotly({
+  d <- genero_valores()
+  req(nrow(d) > 0)
+
+  root_label <- if (isTRUE(input$use_jce_sexo)) {
+    "Proyectos/JCE por genero"
+  } else {
+    "Proyectos en ejecución por genero"
+  }
+
+  # Nodos
+  labels_children  <- d$sexo_ir
+  parents_children <- rep(root_label, nrow(d))
+  values_children  <- d$valor
+
+  # Raíz: debe ser la suma de los hijos cuando branchvalues = "total"
+  labels  <- c(root_label, labels_children)
+  parents <- c("",        parents_children)
+  values  <- c(sum(values_children, na.rm = TRUE), values_children)
+
+  # Enviar datos crudos para hover
+  # customdata columnas: [n_raw, jce, proy_por_jce]
+  children_custom <- cbind(d$n, d$jce, d$proy_por_jce)
+  custom_root     <- matrix(c(NA, NA, NA), nrow = 1)
+  custom_all      <- rbind(custom_root, children_custom)
+
+  hover_tmpl_raw <- paste0(
+    "<b>%{label}</b><br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra></extra>"
+  )
+
+  hover_tmpl_norm <- paste0(
+    "<b>%{label}</b><br>",
+    "Proy/JCE: %{value:.2f}<br>",
+    "% del total: %{percentRoot:.1%}",
+    "<extra></extra>"
+  )
+
+  hover_tmpl <- if (isTRUE(input$use_jce_sexo)) hover_tmpl_norm else hover_tmpl_raw
+
+  plot_ly(
+    type       = "treemap",
+    labels     = labels,
+    parents    = parents,
+    values     = values,
+    branchvalues = "total",
+    textinfo   = "label+value+percent parent",
+    customdata = custom_all,
+    hovertemplate = hover_tmpl
+  ) |>
+    layout(margin = list(t = 10, l = 0, r = 0, b = 0))
+})
+```

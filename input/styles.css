@@ -1,0 +1,47 @@
+
+  /* --- Ajustes generales útiles --- */
+  .js-plotly-plot, .plot-container { max-width: 100%; }  /* evita overflow horizontal */
+  
+  /* --- “Modo compacto” para notebooks de 14" (Bootstrap lg–xl) --- */
+@media (min-width: 992px) and (max-width: 1440px) {
+  /* Value boxes de bslib */
+  .value-box, .bslib-value-box, .bslib-value-box .card-body {
+    padding: 0.75rem 1rem !important;   /* menos padding vertical */
+  }
+
+  /* Número grande (“value”) */
+  .value-box .value,
+  .bslib-value-box .value,
+  div[class*="value-box"] .value {
+    /* reduce y hace responsive */
+    font-size: clamp(1.6rem, 3.2vw, 2.6rem) !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Título/subtítulo dentro del box */
+  .value-box .value-box-title,
+  .bslib-value-box .value-box-title,
+  .value-box .caption,
+  .value-box p {
+    font-size: 0.95rem !important;
+    margin-top: 0.25rem !important;
+  }
+
+  /* Íconos Bootstrap (bsicons) dentro del box */
+  .value-box .bi,
+  .bslib-value-box .bi,
+  .value-box svg.bi {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+  }
+
+  /* Si algún contenedor de sección estaba forzando scroll */
+  .card .card-body {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+}
+
+/* Un poco de aire entre columnas/filas cuando uses .row */
+.row.g-3 { --bs-gutter-x: 1rem; --bs-gutter-y: 1rem; }
+
